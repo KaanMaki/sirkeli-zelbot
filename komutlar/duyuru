@@ -1,0 +1,23 @@
+const Discord = require('discord.js');
+exports.run = async (client, message, args) => {
+let rol = message.mentions.roles.first()
+if (!rol) return message.channel.send(`:x: | Bir rol **etiketler misin?**`)
+let mesaj = args.slice(1).join(' ');
+if (!mesaj) return message.channel.send(`:x: | Bir mesaj **yazar mısın?**`)
+message.channel.send(`Başarıyla \`${rol.id}\` idli rolde olan kişilere mesaj gönderildi! \nKod \`Kaynak Kod Paylaşım\` sunucusuna aittir.`)
+message.guild.roles.get(rol.id).members.map(x => {
+client.users.get(x.user.id).send(mesaj) 
+
+})
+}
+exports.conf = {
+guildOnly: true,
+enabled: true,
+aliases: [],
+permLvl: 0
+}
+exports.help = {
+name: "duyur",
+description: "",
+usage: "duyur"
+}
